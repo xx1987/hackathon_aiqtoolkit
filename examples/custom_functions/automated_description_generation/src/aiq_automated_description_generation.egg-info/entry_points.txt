@@ -1,0 +1,2 @@
+[aiq.components]
+aiq_automated_description_generation = aiq_automated_description_generation.register

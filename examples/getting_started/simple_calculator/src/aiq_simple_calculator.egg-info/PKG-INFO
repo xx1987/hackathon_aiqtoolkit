@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: aiq_simple_calculator
+Version: 1.2.0rc3.dev19+gdc80c2b
+Summary: Simple Calculator AIQ toolkit example
+Keywords: ai,rag,agents
+Classifier: Programming Language :: Python
+Requires-Python: <3.13,>=3.11
+Requires-Dist: aiqtoolkit[langchain]~=1.2

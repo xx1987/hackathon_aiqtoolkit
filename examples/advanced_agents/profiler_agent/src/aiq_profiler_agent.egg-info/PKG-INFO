@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: aiq_profiler_agent
+Version: 1.2.0rc3.dev19+gdc80c2b
+Summary: AIQ toolkit Profiler Agent
+Author: NVIDIA Corporation
+Maintainer: NVIDIA Corporation
+Keywords: ai,rag,agents
+Classifier: Programming Language :: Python
+Requires-Python: <3.13,>=3.11
+Requires-Dist: aiqtoolkit[langchain,profiling,telemetry]~=1.2
+Requires-Dist: pydantic<2.11.0,~=2.10.0

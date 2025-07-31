@@ -1,0 +1,3 @@
+aiqtoolkit[agno]~=1.2
+openai~=1.66
+litellm~=1.63.14

@@ -1,0 +1,2 @@
+[aiq.components]
+aiq_user_report = aiq_user_report.register

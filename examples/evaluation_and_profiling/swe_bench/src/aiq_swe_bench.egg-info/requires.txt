@@ -1,0 +1,2 @@
+aiqtoolkit[langchain]~=1.2
+swebench==3.0.3

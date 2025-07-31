@@ -1,0 +1,2 @@
+[aiq.plugins]
+aiq_profiler_agent = aiq_profiler_agent.register

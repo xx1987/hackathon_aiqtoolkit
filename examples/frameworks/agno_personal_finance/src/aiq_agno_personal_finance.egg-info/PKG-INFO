@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: aiq_agno_personal_finance
+Version: 1.2.0rc3.dev19+gdc80c2b
+Summary: Custom AIQ toolkit Workflow using Agno for personal finance
+Classifier: Programming Language :: Python
+Requires-Python: <3.13,>=3.11
+Requires-Dist: aiqtoolkit[agno]~=1.2
+Requires-Dist: openai~=1.66
+Requires-Dist: litellm~=1.63.14

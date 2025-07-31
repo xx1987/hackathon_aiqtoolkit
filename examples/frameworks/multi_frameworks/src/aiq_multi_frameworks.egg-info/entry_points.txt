@@ -1,0 +1,2 @@
+[aiq.components]
+aiq_multi_frameworks = aiq_multi_frameworks.register

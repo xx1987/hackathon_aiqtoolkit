@@ -1,0 +1,2 @@
+aiqtoolkit[langchain]~=1.2
+aiq_simple_calculator

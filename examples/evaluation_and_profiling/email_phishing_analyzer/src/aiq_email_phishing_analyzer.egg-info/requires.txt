@@ -1,0 +1,5 @@
+aiqtoolkit[langchain]~=1.2
+arize-phoenix==6.1.*
+bs4==0.0.2
+networkx~=3.4
+openinference-instrumentation-langchain==0.1.29

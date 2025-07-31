@@ -1,0 +1,2 @@
+[aiq.components]
+aiq_email_phishing_analyzer = aiq_email_phishing_analyzer.register

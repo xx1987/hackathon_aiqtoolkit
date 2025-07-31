@@ -1,0 +1,2 @@
+[aiq.components]
+aiq_agno_personal_finance = aiq_agno_personal_finance.register
