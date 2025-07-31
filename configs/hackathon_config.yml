@@ -20,9 +20,9 @@ llms:
   # 默认使用ModelScope API (用户需要自己配置)
   default_llm:
     _type: openai
-    model_name: "Qwen/Qwen3-235B-A22B-Thinking-2507"  # 可修改为其他模型
-    api_key: "YOUR_MODELSCOPE_API_KEY"  # 请替换为您的API密钥
-    base_url: "https://api-inference.modelscope.cn/v1"  # 可修改为其他OpenAI兼容API
+    model_name: "MODEL_NAME"  # 可修改为其他模型
+    api_key: "YOUR_API_KEY"  # 请替换为您的API密钥
+    base_url: "BASE_URL"  # 可修改为其他OpenAI兼容API
     temperature: 0.7
     max_tokens: 2048
 

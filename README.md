@@ -48,8 +48,8 @@
 #### Linux/macOS
 ```bash
 # 1. 克隆项目
-git clone https://github.com/your-username/nvidia-nemo-agent-toolkit-hackathon.git
-cd nvidia-nemo-agent-toolkit-hackathon
+git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
+cd hackathon_aiqtoolkit
 
 # 2. 运行安装脚本
 chmod +x install.sh
@@ -59,8 +59,8 @@ chmod +x install.sh
 #### Windows
 ```powershell
 # 1. 克隆项目
-git clone https://github.com/your-username/nvidia-nemo-agent-toolkit-hackathon.git
-cd nvidia-nemo-agent-toolkit-hackathon
+git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
+cd hackathon_aiqtoolkit
 
 # 2. 运行安装脚本
 install.bat
