@@ -44,16 +44,21 @@
 - **操作系统**: Windows 10+/macOS 10.15+/Ubuntu 20.04+
 
 ### ⚡ 一键安装
+
+#### 克隆项目
+```bash
+git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
+cd hackathon_aiqtoolkit
+```
 ### 🔑 配置API密钥
 
 安装完成后，您需要配置以下API密钥：
 
 #### 1. Tavily搜索API密钥
-在`tavily_mcp_server.py`文件中30行左右，将Your API Key替换成你自己的Tavily API Key 来保证搜索功能正常
-```python
-# Tavily API配置
-TAVILY_API_KEY = "Your API Key"
-
+在`install.sh`文件中185行左右，将Your API Key替换成你自己的Tavily API Key 来保证搜索功能正常
+```bash
+# 设置环境变量
+export TAVILY_API_KEY=Your API Key
 ```
 **获取Tavily API密钥**：
 1. 访问 [Tavily官网](https://tavily.com/)
@@ -62,15 +67,16 @@ TAVILY_API_KEY = "Your API Key"
 
 #### 2. 大模型API密钥
 
-编辑 `configs/hackathon_config.yml` 文件：
+编辑 `install.sh` 文件中154行左右,将Your API Key替换成你自己的Bailian API Key：
 
 ```yaml
 llms:
+  # 默认使用Bailian API (用户可修改)
   default_llm:
     _type: openai
-    model_name: "your-model-name"           # 模型名称
-    api_key: "your-api-key"                 # 您的API密钥
-    base_url: "https://your-api-base-url"   # API基础URL
+    model_name: "qwen-plus"
+    api_key: "Your API Key"
+    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     temperature: 0.7
     max_tokens: 2048
 ```
@@ -81,22 +87,14 @@ llms:
 
 #### Linux/macOS
 ```bash
-# 1. 克隆项目
-git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
-cd hackathon_aiqtoolkit
-
-# 2. 运行安装脚本
+# 运行安装脚本
 chmod +x install.sh
 ./install.sh
 ```
 
 #### Windows
 ```powershell
-# 1. 克隆项目
-git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
-cd hackathon_aiqtoolkit
-
-# 2. 运行安装脚本
+# 运行安装脚本
 install.bat
 ```
 

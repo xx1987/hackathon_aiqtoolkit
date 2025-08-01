@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: aiq_user_report
-Version: 1.2.0rc3.dev19+gdc80c2b
-Summary: AIQ toolkit example that uses an Object Store
-Keywords: ai,rag,agents
-Classifier: Programming Language :: Python
-Requires-Python: >=3.12
-Requires-Dist: aiqtoolkit[s3]
-Requires-Dist: aiqtoolkit[mysql]

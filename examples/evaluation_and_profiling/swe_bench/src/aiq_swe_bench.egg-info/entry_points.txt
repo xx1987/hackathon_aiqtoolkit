@@ -1,2 +1,0 @@
-[aiq.components]
-aiq_swe_bench = aiq_swe_bench.register

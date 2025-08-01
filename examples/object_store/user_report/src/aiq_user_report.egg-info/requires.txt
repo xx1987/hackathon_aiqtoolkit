@@ -1,2 +1,0 @@
-aiqtoolkit[s3]
-aiqtoolkit[mysql]

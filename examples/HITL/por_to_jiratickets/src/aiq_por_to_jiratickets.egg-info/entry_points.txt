@@ -1,2 +1,0 @@
-[aiq.components]
-aiq_por_to_jiratickets = aiq_por_to_jiratickets.register

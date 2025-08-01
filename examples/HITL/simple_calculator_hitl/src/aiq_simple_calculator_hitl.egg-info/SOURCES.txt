@@ -1,6 +1,0 @@
-README.md
-pyproject.toml
-src/aiq_simple_calculator_hitl/__init__.py
-src/aiq_simple_calculator_hitl/register.py
-src/aiq_simple_calculator_hitl/retry_react_agent.py
-src/aiq_simple_calculator_hitl.egg-info/SOURCES.txt
