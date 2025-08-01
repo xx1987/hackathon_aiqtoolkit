@@ -44,41 +44,17 @@
 - **操作系统**: Windows 10+/macOS 10.15+/Ubuntu 20.04+
 
 ### ⚡ 一键安装
-
-#### Linux/macOS
-```bash
-# 1. 克隆项目
-git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
-cd hackathon_aiqtoolkit
-
-# 2. 运行安装脚本
-chmod +x install.sh
-./install.sh
-```
-
-#### Windows
-```powershell
-# 1. 克隆项目
-git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
-cd hackathon_aiqtoolkit
-
-# 2. 运行安装脚本
-install.bat
-```
-
 ### 🔑 配置API密钥
 
 安装完成后，您需要配置以下API密钥：
 
 #### 1. Tavily搜索API密钥
-```bash
-# Linux/macOS
-export TAVILY_API_KEY="your-tavily-api-key"
+在`tavily_mcp_server.py`文件中30行左右，将Your API Key替换成你自己的Tavily API Key 来保证搜索功能正常
+```python
+# Tavily API配置
+TAVILY_API_KEY = "Your API Key"
 
-# Windows
-set TAVILY_API_KEY=your-tavily-api-key
 ```
-
 **获取Tavily API密钥**：
 1. 访问 [Tavily官网](https://tavily.com/)
 2. 注册账户并获取免费API密钥
@@ -103,10 +79,34 @@ llms:
 - **阿里云百炼平台Qwen系列**: `https://bailian.console.aliyun.com/?tab=model#/model-market`
 - **其他**: 任何OpenAI兼容的API
 
+#### Linux/macOS
+```bash
+# 1. 克隆项目
+git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
+cd hackathon_aiqtoolkit
+
+# 2. 运行安装脚本
+chmod +x install.sh
+./install.sh
+```
+
+#### Windows
+```powershell
+# 1. 克隆项目
+git clone https://github.com/HeKun-NVIDIA/hackathon_aiqtoolkit.git
+cd hackathon_aiqtoolkit
+
+# 2. 运行安装脚本
+install.bat
+```
+
+
+
 ### 🎮 启动系统
 
 ```bash
 # 启动服务
+cd NeMo-Agent-Toolkit
 ./start.sh
 
 # 停止服务

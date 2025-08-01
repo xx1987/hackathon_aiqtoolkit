@@ -27,7 +27,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Tavily API配置
-TAVILY_API_KEY = "YOUR_MODELSCOPE_API_KEY"
+TAVILY_API_KEY = "Your API Key"
 
 class TavilyMCPServer:
     """Tavily MCP服务器类"""

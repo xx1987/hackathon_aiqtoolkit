@@ -148,7 +148,7 @@ echo echo 🚀 启动 NVIDIA NeMo Agent Toolkit AI对话机器人
 echo echo ==============================================
 echo.
 echo REM 设置环境变量
-echo set TAVILY_API_KEY=YOUR_TAVILY_API_KEY
+echo set TAVILY_API_KEY=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
 echo.
 echo REM 激活Python虚拟环境
 echo call .venv\Scripts\activate.bat

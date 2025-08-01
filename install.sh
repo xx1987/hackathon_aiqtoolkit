@@ -182,7 +182,7 @@ echo "🚀 启动 NVIDIA NeMo Agent Toolkit AI对话机器人"
 echo "=============================================="
 
 # 设置环境变量
-export TAVILY_API_KEY=YOUR_TAVILY_API_KEY  # 请替换为您的Tavily API密钥
+export TAVILY_API_KEY=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
 
 # 激活Python虚拟环境
 source .venv/bin/activate
