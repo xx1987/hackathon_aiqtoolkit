@@ -84,18 +84,24 @@ install_uv() {
 setup_project() {
     echo "📥 设置项目..."
     
+    # 记录当前目录
+    PROJECT_ROOT=$(pwd)
+    
     # 如果目录不存在，克隆项目
     if [ ! -d "NeMo-Agent-Toolkit" ]; then
         echo "正在克隆 NVIDIA NeMo Agent Toolkit..."
         git clone https://github.com/NVIDIA/NeMo-Agent-Toolkit.git
-        cd NeMo-Agent-Toolkit
         
         echo "正在初始化子模块..."
-        git submodule update --init --recursive
-    else
-        echo "项目目录已存在，进入目录..."
         cd NeMo-Agent-Toolkit
+        git submodule update --init --recursive
+        cd "$PROJECT_ROOT"
+    else
+        echo "项目目录已存在..."
     fi
+    
+    # 进入NeMo-Agent-Toolkit目录进行Python环境设置
+    cd NeMo-Agent-Toolkit
     
     # 创建Python虚拟环境
     echo "正在创建Python虚拟环境..."
@@ -107,20 +113,34 @@ setup_project() {
     uv pip install -e .
     uv pip install -e '.[langchain]'
     uv pip install tavily-python
+    uv pip install 'httpx[socks]'
     
     echo "✅ 后端依赖安装完成"
+    
+    # 返回项目根目录
+    cd "$PROJECT_ROOT"
 }
 
 # 设置前端
 setup_frontend() {
     echo "🎨 设置前端..."
     
+    # 检查前端目录是否存在
+    if [ ! -d "external/aiqtoolkit-opensource-ui" ]; then
+        echo "❌ 前端目录不存在: external/aiqtoolkit-opensource-ui"
+        echo "请确保子模块已正确初始化"
+        exit 1
+    fi
+    
+    # 进入前端目录
     cd external/aiqtoolkit-opensource-ui
     
     echo "正在安装前端依赖..."
     npm install
     
     echo "✅ 前端依赖安装完成"
+    
+    # 返回项目根目录
     cd ../..
 }
 
@@ -128,6 +148,11 @@ setup_frontend() {
 create_config() {
     echo "⚙️  创建配置文件..."
     
+    # 确保在项目根目录
+    PROJECT_ROOT=$(pwd)
+    
+    # 在NeMo-Agent-Toolkit目录中创建配置文件
+    cd NeMo-Agent-Toolkit
     mkdir -p configs
     
     cat > configs/hackathon_config.yml << 'EOF'
@@ -168,11 +193,20 @@ workflow:
 EOF
     
     echo "✅ 配置文件创建完成"
+    
+    # 返回项目根目录
+    cd "$PROJECT_ROOT"
 }
 
 # 创建启动脚本
 create_scripts() {
     echo "📝 创建启动脚本..."
+    
+    # 确保在项目根目录
+    PROJECT_ROOT=$(pwd)
+    
+    # 在NeMo-Agent-Toolkit目录中创建启动脚本
+    cd NeMo-Agent-Toolkit
     
     # 创建启动脚本
     cat > start.sh << 'EOF'
@@ -180,6 +214,10 @@ create_scripts() {
 
 echo "🚀 启动 NVIDIA NeMo Agent Toolkit AI对话机器人"
 echo "=============================================="
+
+# 获取项目根目录和NeMo目录
+NEMO_DIR=$(pwd)
+PROJECT_ROOT=$(dirname "$NEMO_DIR")
 
 # 设置环境变量
 export TAVILY_API_KEY=Your API Key
@@ -198,9 +236,12 @@ sleep 10
 
 # 启动前端服务
 echo "🎨 启动前端服务..."
-cd external/aiqtoolkit-opensource-ui
+cd "$PROJECT_ROOT/external/aiqtoolkit-opensource-ui"
 npm run dev &
 FRONTEND_PID=$!
+
+# 返回NeMo目录
+cd "$NEMO_DIR"
 
 echo ""
 echo "✅ 系统启动完成！"
@@ -263,6 +304,9 @@ EOF
     chmod +x start.sh stop.sh
     
     echo "✅ 启动脚本创建完成"
+    
+    # 返回项目根目录
+    cd "$PROJECT_ROOT"
 }
 
 # 主安装流程
@@ -279,16 +323,17 @@ main() {
     echo "🎉 安装完成！"
     echo "=============="
     echo ""
-    echo "📁 项目目录: $(pwd)"
+    echo "📁 项目根目录: $(pwd)"
+    echo "📁 NeMo项目目录: $(pwd)/NeMo-Agent-Toolkit"
     echo ""
     echo "🚀 快速启动:"
-    echo "   ./start.sh"
+    echo "   cd NeMo-Agent-Toolkit && ./start.sh"
     echo ""
     echo "🛑 停止服务:"
-    echo "   ./stop.sh"
+    echo "   cd NeMo-Agent-Toolkit && ./stop.sh"
     echo ""
     echo "⚙️  自定义配置:"
-    echo "   编辑 configs/hackathon_config.yml 文件"
+    echo "   编辑 NeMo-Agent-Toolkit/configs/hackathon_config.yml 文件"
     echo "   可修改 API密钥、模型名称、base_url 等"
     echo ""
     echo "📚 更多信息:"
