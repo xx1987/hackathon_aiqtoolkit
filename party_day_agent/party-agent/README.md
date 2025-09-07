@@ -1,10 +1,8 @@
-# 主题党日智能体
-
 # 主题党日活动智能助手
 
 ## 项目简介
 
-主题党日活动智能助手是一款基于 FastMCP 2.0 + LangGraph 构建的智能工具，能够自动化完成主题党日活动的全流程管理，包括场地检索、日历冲突检测、活动方案生成、通知发送以及活动总结生成。该项目旨在提升党建工作效率，为党组织提供便捷的活动策划和管理解决方案。
+主题党日活动智能助手是一款基于 NVIDIA NeMo Agent Toolkit、FastMCP 2.0 和 LangGraph 构建的智能工具，能够自动化完成主题党日活动的全流程管理，包括场地检索、日历冲突检测、活动方案生成、通知发送以及活动总结生成。该项目旨在提升党建工作效率，为党组织提供便捷的活动策划和管理解决方案。
 
 ## 功能特点
 
@@ -16,8 +14,8 @@
 
 ## 技术栈
 
-- **核心框架**：FastMCP 2.0 + LangGraph
-- **大语言模型**：支持API调用（默认使用阿里云DashScope）和Ollama本地部署
+- **核心框架**：NVIDIA NeMo Agent Toolkit + FastMCP 2.0 + LangGraph
+- **大语言模型**：支持API调用（默认使用阿里云DashScope）和Ollama本地部署，利用CUDA加速处理
 - **Web服务**：FastAPI
 - **容器化**：Docker + Docker Compose
 - **外部API**：高德地图API、企业微信机器人Webhook
@@ -27,6 +25,8 @@
 ```
 party-agent/
 ├── planner.py          # LangGraph工作流主体，定义智能体核心逻辑
+├── demo.py             # 演示脚本
+├── tests/              # 测试目录
 ├── tools/
 │   ├── venue_mcp.py    # 场地检索工具，集成高德地图API
 │   ├── calendar_mcp.py # 日历冲突检测工具
@@ -141,7 +141,7 @@ asyncio.run(test_agent())
 {
   "plan_id": "plan_123456789",
   "theme": "学习贯彻党的二十大精神",
-  "date": "2023-11-15",
+  "date": "2025-09-07",
   "venue": {
     "id": "venue_001",
     "name": "党员活动室",
@@ -255,6 +255,7 @@ curl http://localhost:8000/health
 ## 依赖说明
 
 主要依赖：
+- NVIDIA NeMo Agent Toolkit：提供智能体开发基础组件
 - fastmcp>=2.0：FastMCP工具框架
 - langgraph>=0.0.40：LangGraph工作流框架
 - httpx：HTTP客户端
