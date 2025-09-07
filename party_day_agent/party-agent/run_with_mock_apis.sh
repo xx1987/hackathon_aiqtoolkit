@@ -3,7 +3,7 @@
 # 设置模拟API环境变量
 echo "设置模拟API环境变量..."
 export GAODE_KEY="6d467c5a115a42a99f49125fc4fc1bac"
-export API_KEY="sk-73bcaaf1038d435da7ed32bdeeb42d9a"
+export API_KEY="sk-"
 export BASE_URL="http://localhost:8000/v1"
 export MODEL_NAME="gpt-4o-mini"
 

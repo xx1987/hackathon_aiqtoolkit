@@ -176,7 +176,7 @@ llms:
   default_llm:
     _type: openai
     model_name: "qwen-plus-2025-04-28"
-    api_key: "sk-73bcaaf1038d435da7ed32bdeeb42d9a"
+    api_key: "sk-"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     temperature: 0.7
     max_tokens: 2048

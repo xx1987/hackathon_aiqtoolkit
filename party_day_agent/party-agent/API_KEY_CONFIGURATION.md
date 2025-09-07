@@ -45,7 +45,7 @@ llms:
   default_llm:
     _type: openai
     model_name: "qwen-plus-2025-04-28"
-    api_key: "sk-73bcaaf1038d435da7ed32bdeeb42d9a"  # 默认API密钥
+    api_key: "sk-"  # 默认API密钥
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"  # 默认API地址
     temperature: 0.7
     max_tokens: 2048
@@ -60,7 +60,7 @@ EOF
 
 ```python
 # 尝试从环境变量或配置文件读取API配置
-API_KEY = os.environ.get('AIQ_LLM_API_KEY', 'sk-73bcaaf1038d435da7ed32bdeeb42d9a')  # 默认使用install.sh中的API Key
+API_KEY = os.environ.get('AIQ_LLM_API_KEY', 'sk-')  # 默认使用install.sh中的API Key
 BASE_URL = os.environ.get('AIQ_LLM_BASE_URL', 'https://dashscope.aliyuncs.com/compatible-mode/v1')  # 默认使用install.sh中的base_url
 MODEL_NAME = os.environ.get('AIQ_LLM_MODEL', 'qwen-plus-2025-04-28')  # 默认使用install.sh中的模型
 
@@ -91,7 +91,7 @@ class APILLMClient:
 # 设置模拟的API环境变量
 # 这些值会覆盖默认值，但会被用户实际设置的环境变量覆盖
 export GAODE_KEY="demo_gaode_key"
-export API_KEY="sk-73bcaaf1038d435da7ed32bdeeb42d9a"
+export API_KEY="sk-"
 export BASE_URL="https://dashscope.aliyuncs.com/compatible-mode/v1"
 export MODEL_NAME="qwen-plus-2025-04-28"
 

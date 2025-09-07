@@ -17,7 +17,7 @@ check_api_keys() {
     if [ -z "$AIQ_LLM_API_KEY" ]; then
         echo -e "${blue}警告: AIQ_LLM_API_KEY 环境变量未设置，将使用默认值${nc}"
         # 如果未设置，使用代码中的默认值
-        export AIQ_LLM_API_KEY="sk-73bcaaf1038d435da7ed32bdeeb42d9a"
+        export AIQ_LLM_API_KEY="sk-"
     fi
     
     # 检查高德地图API密钥
