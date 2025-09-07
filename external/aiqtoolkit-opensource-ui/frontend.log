@@ -1,0 +1,15 @@
+nohup: ignoring input
+
+> aiqtoolkit-ui@0.1.1 dev
+> next dev "--hostname" "0.0.0.0" "--port" "3000"
+
+- event [next-runtime-env] read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.
+- ready [next-runtime-env] wrote browser runtime environment variables to '/opt/hackathon_aiqtoolkit/external/aiqtoolkit-opensource-ui/public/__ENV.js'.
+- event [next-runtime-env] read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.
+- ready [next-runtime-env] wrote browser runtime environment variables to '/opt/hackathon_aiqtoolkit/external/aiqtoolkit-opensource-ui/public/__ENV.js'.
+  ▲ Next.js 14.2.25
+  - Local:        http://localhost:3000
+  - Network:      http://0.0.0.0:3000
+  - Environments: .env
+
+ ✓ Starting...

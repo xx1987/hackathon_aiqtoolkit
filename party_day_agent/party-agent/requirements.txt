@@ -1,0 +1,9 @@
+fastmcp>=2.0
+langgraph>=0.0.40
+httpx
+python-docx
+ics
+uvicorn
+
+# 大模型相关依赖
+ollama

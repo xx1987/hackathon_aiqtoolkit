@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # LangGraph主流程服务
+  planner:
+    build:
+      context: .
+      dockerfile: Dockerfile.planner
+    ports:
+      - "8000:8000"
+    environment:
+      - MCP_URL=http://localhost:8000
+      - GAODE_KEY=${GAODE_KEY}
+      - WX_ROBOT_URL=${WX_ROBOT_URL}
+      - DOCX_TEMPLATE=./template.docx
+    depends_on:
+      - venue_service
+      - calendar_service
+      - notify_service
+      - summary_service
+    networks:
+      - party_agent_network
+
+  # 场地搜索服务
+  venue_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.tools
+    command: python -m tools.venue_mcp
+    ports:
+      - "8001:8001"
+    environment:
+      - GAODE_KEY=${GAODE_KEY}
+    volumes:
+      - .:/app
+    networks:
+      - party_agent_network
+
+  # 日历检查服务
+  calendar_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.tools
+    command: python -m tools.calendar_mcp
+    ports:
+      - "8002:8002"
+    volumes:
+      - .:/app
+    networks:
+      - party_agent_network
+
+  # 通知发送服务
+  notify_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.tools
+    command: python -m tools.notify_mcp
+    ports:
+      - "8003:8003"
+    environment:
+      - WX_ROBOT_URL=${WX_ROBOT_URL}
+    volumes:
+      - .:/app
+    networks:
+      - party_agent_network
+
+  # 总结生成服务
+  summary_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.tools
+    command: python -m tools.summary_mcp
+    ports:
+      - "8004:8004"
+    environment:
+      - DOCX_TEMPLATE=./template.docx
+    volumes:
+      - .:/app
+    networks:
+      - party_agent_network
+
+networks:
+  party_agent_network:
+    driver: bridge
+
+# 环境变量说明：
+# GAODE_KEY: 高德地图Web API密钥
+# WX_ROBOT_URL: 企业微信机器人Webhook URL
+# DOCX_TEMPLATE: Word模板文件路径

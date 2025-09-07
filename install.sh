@@ -175,8 +175,8 @@ llms:
   # 默认使用Bailian API (用户可修改)
   default_llm:
     _type: openai
-    model_name: "qwen-plus"
-    api_key: "Your API Key"
+    model_name: "qwen-plus-2025-04-28"
+    api_key: "sk-73bcaaf1038d435da7ed32bdeeb42d9a"
     base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
     temperature: 0.7
     max_tokens: 2048

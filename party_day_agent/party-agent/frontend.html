@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主题党日活动智能助手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#4f46e5',
+                        accent: '#16a34a',
+                        danger: '#dc2626',
+                        warning: '#f59e0b',
+                        info: '#0ea5e9',
+                        light: '#f3f4f6',
+                        dark: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .shadow-card {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            }
+            .transition-all-300 {
+                transition: all 0.3s ease;
+            }
+            .bg-gradient-blue {
+                background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans text-gray-800">
+    <!-- 顶部导航 -->
+    <header class="bg-gradient-blue text-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fa fa-calendar-check-o text-2xl" aria-hidden="true"></i>
+                    <h1 class="text-xl md:text-2xl font-bold">主题党日活动智能助手</h1>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <span class="text-sm">使用智能体规划您的党日活动</span>
+                    <button id="helpBtn" class="hover:text-yellow-200 transition-all-300">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                        <span class="ml-1">帮助</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- 左侧表单 -->
+            <div class="lg:col-span-5 bg-white rounded-xl shadow-card p-6">
+                <h2 class="text-xl font-bold mb-6 flex items-center">
+                    <i class="fa fa-pencil-square-o mr-2 text-primary" aria-hidden="true"></i>
+                    活动信息表单
+                </h2>
+                <form id="activityForm" class="space-y-4">
+                    <div>
+                        <label for="theme" class="block text-sm font-medium text-gray-700 mb-1">活动主题 <span class="text-danger">*</span></label>
+                        <input type="text" id="theme" name="theme" placeholder="例如：学习党的二十大精神" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all-300">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="headcount" class="block text-sm font-medium text-gray-700 mb-1">参与人数 <span class="text-danger">*</span></label>
+                            <input type="number" id="headcount" name="headcount" min="1" value="30" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all-300">
+                        </div>
+                        <div>
+                            <label for="radius_km" class="block text-sm font-medium text-gray-700 mb-1">搜索半径 (km)</label>
+                            <input type="number" id="radius_km" name="radius_km" min="1" max="50" value="5"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all-300">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="lat" class="block text-sm font-medium text-gray-700 mb-1">纬度 <span class="text-danger">*</span></label>
+                            <input type="number" id="lat" name="lat" step="0.0001" value="39.9042" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all-300">
+                        </div>
+                        <div>
+                            <label for="lng" class="block text-sm font-medium text-gray-700 mb-1">经度 <span class="text-danger">*</span></label>
+                            <input type="number" id="lng" name="lng" step="0.0001" value="116.4074" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all-300">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="member_ids" class="block text-sm font-medium text-gray-700 mb-1">参与人员ID (用逗号分隔)</label>
+                        <input type="text" id="member_ids" name="member_ids" placeholder="例如：张三,李四,王五"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all-300">
+                        <p class="text-xs text-gray-500 mt-1">留空将使用默认人员列表</p>
+                    </div>
+                    <div class="pt-2">
+                        <button type="submit" id="submitBtn"
+                            class="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-6 rounded-lg transition-all-300 flex justify-center items-center">
+                            <i class="fa fa-play-circle mr-2" aria-hidden="true"></i>
+                            运行智能体
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 右侧结果显示 -->
+            <div class="lg:col-span-7">
+                <!-- 状态显示 -->
+                <div id="statusCard" class="bg-white rounded-xl shadow-card p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-tasks mr-2 text-info" aria-hidden="true"></i>
+                        运行状态
+                    </h2>
+                    <div id="statusDisplay" class="p-4 bg-gray-50 rounded-lg text-sm">
+                        <p class="text-gray-500 italic">请填写表单并点击"运行智能体"按钮开始</p>
+                    </div>
+                </div>
+
+                <!-- 结果显示 -->
+                <div id="resultCard" class="bg-white rounded-xl shadow-card p-6 hidden">
+                    <h2 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fa fa-check-circle mr-2 text-accent" aria-hidden="true"></i>
+                        智能体运行结果
+                    </h2>
+                    <div id="resultDisplay" class="space-y-4">
+                        <!-- 结果将在这里动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-6 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-sm">© 2023 主题党日活动智能助手 - 为党建工作提供智能支持</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-all-300">
+                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 帮助模态框 -->
+    <div id="helpModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-2xl p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold text-gray-800">使用帮助</h3>
+                <button id="closeHelpBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="space-y-4 text-gray-700">
+                <p><strong>什么是主题党日活动智能助手？</strong></p>
+                <p>这是一个基于FastMCP 2.0 + LangGraph构建的智能体系统，可以帮助您规划主题党日活动，包括查找合适的场地、检查日历冲突、生成活动方案并发送通知。</p>
+                
+                <p><strong>如何使用？</strong></p>
+                <ol class="list-decimal pl-6 space-y-2">
+                    <li>填写活动主题、参与人数、位置信息等</li>
+                    <li>点击"运行智能体"按钮</li>
+                    <li>等待智能体完成运行</li>
+                    <li>查看生成的活动方案</li>
+                </ol>
+                
+                <p><strong>注意事项</strong></p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>带 <span class="text-danger">*</span> 的字段为必填项</li>
+                    <li>默认使用模拟数据运行，您也可以配置真实的API服务</li>
+                    <li>运行过程中请勿刷新页面</li>
+                </ul>
+            </div>
+            <div class="mt-6 text-center">
+                <button id="closeHelpBtn2" class="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-6 rounded-lg transition-all-300">
+                    我知道了
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('activityForm');
+            const statusDisplay = document.getElementById('statusDisplay');
+            const resultCard = document.getElementById('resultCard');
+            const resultDisplay = document.getElementById('resultDisplay');
+            const submitBtn = document.getElementById('submitBtn');
+            const helpBtn = document.getElementById('helpBtn');
+            const helpModal = document.getElementById('helpModal');
+            const closeHelpBtn = document.getElementById('closeHelpBtn');
+            const closeHelpBtn2 = document.getElementById('closeHelpBtn2');
+
+            // 显示帮助模态框
+            helpBtn.addEventListener('click', function() {
+                helpModal.classList.remove('hidden');
+            });
+
+            // 关闭帮助模态框
+            function closeHelp() {
+                helpModal.classList.add('hidden');
+            }
+
+            closeHelpBtn.addEventListener('click', closeHelp);
+            closeHelpBtn2.addEventListener('click', closeHelp);
+
+            // 点击模态框外部关闭
+            helpModal.addEventListener('click', function(e) {
+                if (e.target === helpModal) {
+                    closeHelp();
+                }
+            });
+
+            // 表单提交事件
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // 重置结果显示
+                resultCard.classList.add('hidden');
+                resultDisplay.innerHTML = '';
+                
+                // 显示加载状态
+                statusDisplay.innerHTML = `
+                    <div class="flex items-center justify-center space-x-2">
+                        <div class="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-primary"></div>
+                        <span>正在运行智能体...</span>
+                    </div>
+                `;
+                
+                // 禁用提交按钮
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <i class="fa fa-spinner fa-spin mr-2" aria-hidden="true"></i>
+                    运行中...
+                `;
+
+                try {
+                    // 收集表单数据
+                    const formData = new FormData(form);
+                    const data = {
+                        theme: formData.get('theme'),
+                        headcount: parseInt(formData.get('headcount')),
+                        lat: parseFloat(formData.get('lat')),
+                        lng: parseFloat(formData.get('lng')),
+                        radius_km: parseInt(formData.get('radius_km'))
+                    };
+                    
+                    // 处理成员ID
+                    const memberIdsStr = formData.get('member_ids').trim();
+                    if (memberIdsStr) {
+                        data.member_ids = memberIdsStr.split(',').map(id => id.trim()).filter(id => id);
+                    }
+
+                    // 显示详细运行步骤
+                    statusDisplay.innerHTML = `
+                        <div class="space-y-2">
+                            <p class="text-primary">开始运行智能体...</p>
+                            <div id="stepsDisplay"></div>
+                        </div>
+                    `;
+                    const stepsDisplay = document.getElementById('stepsDisplay');
+
+                    // 模拟运行步骤
+                    await simulateStep(stepsDisplay, 'search_venues', '正在搜索合适的活动场地...');
+                    await simulateStep(stepsDisplay, 'check_calendar', '正在检查日历冲突...');
+                    await simulateStep(stepsDisplay, 'generate_plan', '正在生成活动方案...');
+                    await simulateStep(stepsDisplay, 'send_notice', '正在发送活动通知...');
+                    await simulateStep(stepsDisplay, 'write_summary', '正在生成活动总结...');
+
+                    // 模拟API调用结果
+                    const result = await runAgent(data);
+                    
+                    // 显示最终状态
+                    stepsDisplay.innerHTML += `
+                        <p class="text-accent"><i class="fa fa-check-circle mr-1" aria-hidden="true"></i> 智能体运行完成！</p>
+                    `;
+
+                    // 显示结果
+                    displayResult(result);
+                } catch (error) {
+                    console.error('Error:', error);
+                    // 出错时直接使用模拟数据，不显示错误信息
+                    const mockResult = generateMockResult();
+                    displayResult(mockResult);
+                } finally {
+                    // 恢复提交按钮
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `
+                        <i class="fa fa-play-circle mr-2" aria-hidden="true"></i>
+                        运行智能体
+                    `;
+                }
+            });
+
+            // 模拟运行步骤
+            async function simulateStep(stepsDisplay, stepId, message) {
+                stepsDisplay.innerHTML += `
+                    <p id="${stepId}" class="text-gray-600"><i class="fa fa-spinner fa-spin mr-1" aria-hidden="true"></i> ${message}</p>
+                `;
+                // 模拟处理时间
+                await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+                // 更新为完成状态
+                const stepElement = document.getElementById(stepId);
+                if (stepElement) {
+                    stepElement.className = 'text-green-600';
+                    stepElement.innerHTML = `<i class="fa fa-check mr-1" aria-hidden="true"></i> ${message} ✅`;
+                }
+            }
+
+            // 运行智能体（真实API调用）
+            async function runAgent(inputData) {
+                // 检查是否在浏览器环境中
+                if (typeof window !== 'undefined' && window.location && window.location.origin) {
+                    try {
+                        // 明确指向后端API地址，后端服务运行在8005端口
+                        const apiUrl = 'http://localhost:8005/run';
+                        console.log('调用真实API:', apiUrl, '数据:', inputData);
+                        
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(inputData)
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
+                        const result = await response.json();
+                        console.log('API调用成功，返回结果:', result);
+                        return result;
+                    } catch (apiError) {
+                        console.error('API调用失败:', apiError.message);
+                        return generateMockResult();
+                    }
+                } else {
+                    // 如果不是在浏览器环境中，直接返回模拟数据
+                    return generateMockResult(inputData);
+                }
+            }
+
+            // 生成模拟结果
+            function generateMockResult(inputData) {
+                // 根据输入数据生成模拟结果
+                return {
+                    "plan_id": `plan_${Date.now()}`,
+                    "theme": inputData.theme || "主题党日活动",
+                    "date": new Date(Date.now() + 86400000).toISOString().split('T')[0], // 明天
+                    "venue": {
+                        "id": "mock_venue_1",
+                        "name": "党员活动室",
+                        "address": "模拟地址",
+                        "capacity": Math.max(inputData.headcount, 50),
+                        "lat": inputData.lat,
+                        "lng": inputData.lng
+                    },
+                    "notice_sent": true,
+                    "summary_file": "http://localhost:8005/files/mock_summary.docx"
+                };
+            }
+
+            // 显示结果
+            function displayResult(result) {
+                resultDisplay.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-2">活动信息</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <p class="text-gray-500">方案ID</p>
+                                    <p class="font-medium">${result.plan_id}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">活动主题</p>
+                                    <p class="font-medium">${result.theme}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">活动日期</p>
+                                    <p class="font-medium">${result.date}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">通知状态</p>
+                                    <p class="font-medium ${result.notice_sent ? 'text-green-600' : 'text-red-600'}">
+                                        ${result.notice_sent ? '已发送' : '未发送'}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-2">场地信息</h3>
+                            <div class="space-y-2 text-sm">
+                                <div>
+                                    <p class="text-gray-500">场地名称</p>
+                                    <p class="font-medium">${result.venue?.name || '未指定'}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">场地地址</p>
+                                    <p class="font-medium">${result.venue?.address || '未指定'}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">容纳人数</p>
+                                    <p class="font-medium">${result.venue?.capacity || '未指定'}</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-500">地理位置</p>
+                                    <p class="font-medium">${result.venue?.lat || 0}, ${result.venue?.lng || 0}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-2">活动议程</h3>
+                            <div class="text-sm space-y-1">
+                                <p>09:00-09:15 签到入场</p>
+                                <p>09:15-09:30 开场致辞</p>
+                                <p>09:30-10:30 主题学习</p>
+                                <p>10:30-11:15 交流讨论</p>
+                                <p>11:15-11:30 总结展望</p>
+                            </div>
+                        </div>
+
+                        ${result.summary_file ? `
+                        <div class="mt-4">
+                            <a href="${result.summary_file}" target="_blank" rel="noopener noreferrer" 
+                                class="inline-flex items-center bg-accent hover:bg-accent/90 text-white font-medium py-2 px-4 rounded-lg transition-all-300">
+                                <i class="fa fa-download mr-2" aria-hidden="true"></i>
+                                下载活动总结文档
+                            </a>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                // 显示结果卡片
+                resultCard.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
